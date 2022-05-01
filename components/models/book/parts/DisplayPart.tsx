@@ -1,5 +1,5 @@
-import {PartMemo} from "../../../models/memo"
-import {Part} from "../../../models/book"
+import {PartMemo} from "../../../../models/memo"
+import {Part} from "../../../../models/book"
 import {DisplaySentence} from "./DisplaySentence"
 import {DisplayHeader} from "./DisplayHeader"
 

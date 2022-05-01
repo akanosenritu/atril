@@ -1,5 +1,5 @@
-import {PartMemo} from "../../../models/memo"
-import {Header, Part} from "../../../models/book"
+import {PartMemo} from "../../../../models/memo"
+import {Header, Part} from "../../../../models/book"
 import {DisplaySentence} from "./DisplaySentence"
 import { Box } from "@mui/material"
 import {Word} from "./Word"
