@@ -9,17 +9,15 @@ import {DisplaySupplementalInfo} from "../../models/book/supplementalInfo/Displa
 
 const fetcher = (url: string) => fetch(url).then(data => data.json())
 
-export const BookPage = (props: {bookId: string}) => {
-  const {data: bookData} = useSWR<{book: Book}>(`/api/books/${props.bookId}`, fetcher)
-
+export const BookPage = (props: {book: Book}) => {
   // memo attached to the book
-  const {data: memoData} = useSWR<{memo: BookMemo | null}>(`/api/books/memos/${props.bookId}`, fetcher)
+  const {data: memoData} = useSWR<{memo: BookMemo | null}>(`/api/books/memos/${props.book.id}`, fetcher)
   const updateSentenceMemo = async (updatedSentenceMemo: PartMemo) => {
     // if memoData.memo is not set, create a new BookMemo
     if (!memoData?.memo) {
-      const bookMemo = createNewBookMemo(props.bookId, "1")
+      const bookMemo = createNewBookMemo(props.book.id, "1")
       bookMemo.memos[updatedSentenceMemo.partId] = updatedSentenceMemo
-      await fetch(`/api/books/memos/${props.bookId}`, {
+      await fetch(`/api/books/memos/${props.book.id}`, {
         method: "POST",
         body: JSON.stringify(bookMemo),
         headers: {
@@ -31,7 +29,7 @@ export const BookPage = (props: {bookId: string}) => {
     // if already created, update it
     const bookMemo = memoData.memo
     bookMemo.memos[updatedSentenceMemo.partId] = updatedSentenceMemo
-    await fetch(`/api/books/memos/${props.bookId}`, {
+    await fetch(`/api/books/memos/${props.book.id}`, {
       method: "PUT",
       body: JSON.stringify(bookMemo),
       headers: {
@@ -41,12 +39,8 @@ export const BookPage = (props: {bookId: string}) => {
     return
   }
 
-  // if it is still loading, display spinner
-  // TODO: insert a spinner
-  if (!bookData) return <div>読込中...</div>
-
   // for convenience
-  const parts = bookData.book.parts
+  const parts = props.book.parts
 
   return<FocusedWordProvider>
     <FocusedLineProvider>

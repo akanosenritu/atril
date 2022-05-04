@@ -32,7 +32,7 @@ export const DisplaySentence: React.FC<Props> = props => {
 
   return <Box sx={{width: "100%", my: 2, ml: 2}}>
     <Box sx={{display: "flex", flexWrap: "wrap", "& .MuiBox-root": {margin: 0.5}, fontSize: "1.2rem"}} onClick={onClickSentence}>
-      {words.map(word => <Word key={word} text={word} />)}
+      {words.map((word, index) => <Word key={`${index}-${word}`} text={word} />)}
     </Box>
     <Box sx={{p: 3}}>
       <TextField

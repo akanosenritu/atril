@@ -1,4 +1,5 @@
 import {useState} from "react"
+import Link from "next/link"
 import {Box, Button, Typography} from "@mui/material"
 
 export const DisplayTranslation = (props: {text: string | null}) => {
@@ -16,6 +17,9 @@ export const DisplayTranslation = (props: {text: string | null}) => {
     <Box sx={{display: "flex", justifyContent: "space-between"}}>
       <Typography variant={"h6"}>Translation</Typography>
       <Box my={0.3}><Button onClick={onClickTranslate} variant={"contained"} size={"small"}>Translate</Button></Box>
+    </Box>
+    <Box ml={2} sx={{fontSize: "0.8rem", textAlign: "left"}}>
+      * Translations are generated using <Link href={"https://azure.microsoft.com/ja-jp/services/cognitive-services/translator/"}>Azure Translator</Link> by Microsoft.
     </Box>
     <Box ml={2} mt={1} sx={{"& > :not(:first-of-type)": {borderTop: "1px dashed darkgray", mt: 1, pt: 1}}}>
       {translations.map(translation => <Box key={translation.to} sx={{display: "flex", "& .MuiBox-root": {ml: 1}}}><Box>{translation.to}:</Box><Box>{translation.text}</Box></Box>)}
