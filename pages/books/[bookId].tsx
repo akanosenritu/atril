@@ -1,6 +1,6 @@
 import {NextPage} from "next"
 import { useRouter } from "next/router"
-import {BookPage} from "../../components/pages/book"
+import {BookPage} from "../../components/pages/books/book"
 import {Layout} from "../../components/layout/layout"
 
 const Page: NextPage = () => {

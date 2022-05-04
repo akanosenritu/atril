@@ -1,25 +1,22 @@
 import {Box, Button} from "@mui/material"
-import useSWR from "swr"
-import {Book} from "../../../models/book"
+import {BookMetadata} from "../../../models/book"
 import {useRouter} from "next/router"
 
-const fetcher = (url: string) => fetch(url).then(data => data.json())
-
-export const BookInfoDetailed = (props: {bookId: string}) => {
-  const {data, error} = useSWR<{book: Book}>(`/api/books/${props.bookId}`, fetcher)
+export const BookInfoDetailed = (props: {bookId: string, bookMetadata: BookMetadata}) => {
   const router = useRouter()
   const onClickOpen = async () => {
-    if (!data) return
-    await router.push(`/books/${data.book.id}`)
+    await router.push(`/books/${props.bookId}`)
   }
-  if (!data) return <div>読込中...</div>
   return <Box sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
     <Box sx={{flexGrow: 1}}>
       <Box>
-        著者: {data.book.metadata.author}
+        著者: {props.bookMetadata.author}
       </Box>
       <Box>
-        {data.book.metadata.description}
+        作成日時: {props.bookMetadata.createdAt}
+      </Box>
+      <Box>
+        {props.bookMetadata.description}
       </Box>
     </Box>
     <Box>

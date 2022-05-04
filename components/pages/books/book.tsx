@@ -1,12 +1,11 @@
 import {Box} from "@mui/material"
 import useSWR from "swr"
-import {Book} from "../../models/book"
-import {BookMemo, createNewBookMemo, PartMemo} from "../../models/memo"
-import {DisplayPart} from "../models/book/parts/DisplayPart"
-import {useState} from "react"
-import {FocusedWordProvider} from "../../contexts/FocusedWordContext"
-import {FocusedLineProvider} from "../../contexts/FocusedLineContext"
-import {DisplaySupplementalInfo} from "../models/book/supplementalInfo/DisplaySupplementalInfo"
+import {Book} from "../../../models/book"
+import {BookMemo, createNewBookMemo, PartMemo} from "../../../models/memo"
+import {DisplayPart} from "../../models/book/parts/DisplayPart"
+import {FocusedWordProvider} from "../../../contexts/FocusedWordContext"
+import {FocusedLineProvider} from "../../../contexts/FocusedLineContext"
+import {DisplaySupplementalInfo} from "../../models/book/supplementalInfo/DisplaySupplementalInfo"
 
 const fetcher = (url: string) => fetch(url).then(data => data.json())
 

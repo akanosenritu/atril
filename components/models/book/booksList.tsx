@@ -1,22 +1,25 @@
 import React from "react"
-import useSWR from "swr"
 import {Box, Typography} from "@mui/material"
 import {BookInfo} from "./bookInfo"
 
-const fetcher = (url: string) => fetch(url).then(data => data.json())
+type Props = {
+  books: {[id: string]: {
+    title: string,
+    metadata: {
+      author: string,
+      description: string,
+      createdAt: string,
+    }
+  }}
+}
 
-export const BooksList: React.FC = () => {
-  const {data: bookDataFilesData} = useSWR<{bookIds: string[] }>("/api/books/list-book-data-files", fetcher)
-  const {data: bookTitlesData} = useSWR<{titles: {[id: string]: string}}>("/api/books/list-book-titles", fetcher)
-
-  if (!bookDataFilesData || !bookTitlesData) return <div>読込中。</div>
-  const availableBookIds = bookDataFilesData.bookIds.filter(bookId => bookTitlesData.titles.hasOwnProperty(bookId))
+export const BooksList = (props: Props) => {
   return <Box>
-    <Typography variant={"h4"}>現在利用可能なテキスト</Typography>
+    <Typography variant={"h4"}>Available books</Typography>
     <Box mt={3} pt={2} px={3} sx={{borderTop: "1px solid darkgray", width: "100%"}}>
       <Box sx={{width: "100%"}}>
-        {availableBookIds.map(bookId => {
-          return <BookInfo key={bookId} bookName={bookTitlesData.titles[bookId]} bookId={bookId} />
+        {Object.keys(props.books).map(bookId => {
+          return <BookInfo key={bookId} bookName={props.books[bookId].title} bookId={bookId} bookMetadata={props.books[bookId].metadata}/>
         })}
       </Box>
     </Box>

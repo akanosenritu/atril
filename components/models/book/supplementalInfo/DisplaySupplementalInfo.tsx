@@ -13,7 +13,7 @@ export const DisplaySupplementalInfo = () => {
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue)
   }
-  return <Box sx={{height: "100vh", overFlowY: "auto", flexGrow: 0, width: 700}}>
+  return <Box sx={{height: "95vh", overFlowY: "auto", flexGrow: 0, width: 700}}>
     <Box>
       <Tabs value={tabIndex} onChange={handleTabChange}>
         <Tab label={"Line"} />

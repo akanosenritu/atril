@@ -1,3 +1,5 @@
+import * as uuid from "uuid"
+
 export type Sentence = {
   id: string,
   original: string,
@@ -12,7 +14,7 @@ export type Header = {
 
 export type Part = Sentence | Header
 
-export type BookMetaData = {
+export type BookMetadata = {
   author: string,
   createdAt: string,
   description: string,
@@ -20,7 +22,22 @@ export type BookMetaData = {
 
 export type Book = {
   id: string,
-  metadata: BookMetaData,
+  title: string,
+  metadata: BookMetadata,
   original: string,
   parts: Part[]
+}
+
+export const createBlankBook = () => {
+  return {
+    id: uuid.v4(),
+    title: "",
+    metadata: {
+      author: "",
+      createdAt: "",
+      description: "",
+    },
+    original: "",
+    parts: [],
+  }
 }

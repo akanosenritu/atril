@@ -4,9 +4,14 @@ import fetch from "cross-fetch"
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{
-   titles: {
-     [id: string]: string,
-   }
+   [id: string]: {
+     title: string,
+     metadata: {
+       author: string,
+       description: string,
+       createdAt: string,
+     }
+   },
   }>
 ) {
   const data = await fetch("https://atril2lirta.blob.core.windows.net/books/titles.json").then(res => res.json())
