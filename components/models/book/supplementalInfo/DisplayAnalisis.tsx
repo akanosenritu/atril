@@ -1,4 +1,5 @@
 import {useState} from "react"
+import Link from "next/link"
 import {Box, Button, Typography} from "@mui/material"
 import {Token} from "../../../../models/analysis"
 
@@ -26,6 +27,9 @@ export const DisplayAnalysis = (props: {text: string | null}) => {
     <Box sx={{display: "flex", justifyContent: "space-between"}}>
       <Typography variant={"h6"}>Analysis</Typography>
       <Box my={0.3}><Button onClick={onClickAnalyze} variant={"contained"} size={"small"}>Analyze</Button></Box>
+    </Box>
+    <Box ml={2} sx={{fontSize: "0.8rem", textAlign: "left"}}>
+      * Analysis is generated using <Link href={"https://spacy.io/"}>Spacy</Link> with dataset <Link href={"https://spacy.io/models/es#es_core_news_sm"}>es_core_news_sm</Link>, which is run on a instance of Azure Web Apps.
     </Box>
     <Box ml={2} mt={1} sx={{display: "flex", flexWrap: "wrap", "& > .MuiBox-root": {m: 2}}}>
       <Box sx={{fontWeight: "bold", borderRight: "2px dotted black", textAlign: "center", pr: 1}}>
