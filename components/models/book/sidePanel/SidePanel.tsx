@@ -2,9 +2,11 @@ import { Box, Tab, Tabs } from "@mui/material"
 import React, {useContext, useState} from "react"
 import {FocusedWordContext} from "../../../../contexts/FocusedWordContext"
 import {FocusedLineContext} from "../../../../contexts/FocusedLineContext"
-import {DisplaySupplementalInfoLine} from "./DisplaySupplementalInfoLine"
+import {SidePanelLineInfoTab} from "./SidePanelLineInfoTab"
+import {Book} from "../../../../models/book"
+import {SidePanelExportTab} from "./SidePanelExportTab"
 
-export const DisplaySupplementalInfo = () => {
+export const SidePanel = (props: {book: Book}) => {
   const focusedWordContextValue = useContext(FocusedWordContext)
   const focusedLineContextValue = useContext(FocusedLineContext)
 
@@ -18,9 +20,11 @@ export const DisplaySupplementalInfo = () => {
       <Tabs value={tabIndex} onChange={handleTabChange}>
         <Tab label={"Line"} />
         <Tab label={"Word"} />
+        <Tab label={"Export"} />
       </Tabs>
     </Box>
-    {tabIndex === 0 && <DisplaySupplementalInfoLine line={focusedLineContextValue.focusedLine} key={focusedLineContextValue.focusedLine} />}
+    {tabIndex === 0 && <SidePanelLineInfoTab line={focusedLineContextValue.focusedLine} key={focusedLineContextValue.focusedLine} />}
     {tabIndex === 1 && <Box m={3}>FocusedWord: {focusedWordContextValue.focusedWord}</Box>}
+    {tabIndex === 2 && <SidePanelExportTab book={props.book} />}
   </Box>
 }
