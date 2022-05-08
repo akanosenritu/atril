@@ -5,7 +5,7 @@ import {BookMemo, createNewBookMemo, PartMemo} from "../../../models/memo"
 import {DisplayPart} from "../../models/book/parts/DisplayPart"
 import {FocusedWordProvider} from "../../../contexts/FocusedWordContext"
 import {FocusedLineProvider} from "../../../contexts/FocusedLineContext"
-import {DisplaySupplementalInfo} from "../../models/book/supplementalInfo/DisplaySupplementalInfo"
+import {SidePanel} from "../../models/book/sidePanel/SidePanel"
 
 const fetcher = (url: string) => fetch(url).then(data => data.json())
 
@@ -53,7 +53,7 @@ export const BookPage = (props: {book: Book}) => {
             memo={memoData?.memo?.memos ? memoData.memo.memos[part.id]: undefined}
           />)}
         </Box>
-        <DisplaySupplementalInfo />
+        <SidePanel book={props.book} />
       </Box>
     </FocusedLineProvider>
   </FocusedWordProvider>
