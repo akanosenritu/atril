@@ -4,6 +4,7 @@ import {Word} from "./Word"
 import {PartMemo} from "../../../../models/memo"
 import {Sentence} from "../../../../models/book"
 import {FocusedLineContext} from "../../../../contexts/FocusedLineContext"
+import {SettingsContext} from "../../../../contexts/SettingsContext"
 
 type Props = {
   sentence: Sentence,
@@ -18,7 +19,7 @@ export const DisplaySentence: React.FC<Props> = props => {
   // for translation input
   // it is uncontrolled and will be saved in cosmosDB on blur event.
   const translationInputRef = useRef<HTMLTextAreaElement|null>(null)
-  const onTranslationInputBlur = () => {
+  const onBlurTranslationInput = () => {
     const value = translationInputRef.current?.value
     if (!value) return
     props.updateMemo({translation: value, partId: props.sentence.id})
@@ -28,6 +29,13 @@ export const DisplaySentence: React.FC<Props> = props => {
   const focusedLineContextValue = useContext(FocusedLineContext)
   const onClickSentence = () => {
     focusedLineContextValue.setFocusedLine(props.sentence.original)
+  }
+
+  // if the translation input receives a focus and settings.books.doesFocusedMoveAutomatically is true,
+  // set the focusedLine to this line.
+  const {settings} = useContext(SettingsContext)
+  const onFocusTranslationInput = () => {
+    if (settings.books.doesFocusedMoveAutomatically) focusedLineContextValue.setFocusedLine(props.sentence.original)
   }
 
   return <Box sx={{width: "100%", my: 2, ml: 2}}>
@@ -41,7 +49,8 @@ export const DisplaySentence: React.FC<Props> = props => {
         inputRef={translationInputRef}
         minRows={1}
         multiline={true}
-        onBlur={onTranslationInputBlur}
+        onBlur={onBlurTranslationInput}
+        onFocus={onFocusTranslationInput}
         size={"small"}
         variant={"standard"}
       />
