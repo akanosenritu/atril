@@ -5,6 +5,7 @@ import {DisplayHeader} from "./DisplayHeader"
 
 type Props = {
   part: Part,
+  lineNumber: number,
   memo?: PartMemo,
   updateMemo: (updatedMemo: PartMemo) => void,
 }
@@ -12,6 +13,6 @@ type Props = {
 export const DisplayPart = (props: Props) => {
   const part = props.part
   return part.type === "sentence" ?
-    <DisplaySentence sentence={part} updateMemo={props.updateMemo} memo={props.memo} /> :
+    <DisplaySentence sentence={part} updateMemo={props.updateMemo} memo={props.memo} lineNumber={props.lineNumber}/> :
     <DisplayHeader header={part} updateMemo={props.updateMemo} memo={props.memo} />
 }
