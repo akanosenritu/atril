@@ -3,15 +3,19 @@ import {Box} from "@mui/material"
 import {FocusedWordContext} from "../../../../contexts/FocusedWordContext"
 
 type Props = {
-  text: string
+  text: string,
+  index: number,
+  isLineFocused: boolean,
 }
 
 export const Word: React.FC<Props> = props => {
-  const focusedWordContextValue = useContext(FocusedWordContext)
+  const {focusedWord, focusedWordIndex, setFocusedWord}= useContext(FocusedWordContext)
   const onClickWord = () => {
-    focusedWordContextValue.setFocusedWord(props.text)
+    setFocusedWord(props.text, props.index)
   }
-  return <Box onClick={onClickWord}>
+  const isWordFocused = props.isLineFocused && focusedWordIndex === props.index && focusedWord === props.text
+  const borderBottom = isWordFocused ? "2px solid lightpink" : ""
+  return <Box onClick={onClickWord} sx={{borderBottom}}>
     {props.text}
   </Box>
 }

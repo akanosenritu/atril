@@ -8,6 +8,7 @@ import {DisplaySentenceMainPart} from "./DisplaySentenceMainPart"
 
 type Props = {
   sentence: Sentence,
+  lineNumber: number,
   memo?: PartMemo,
   updateMemo: (updatedMemo: PartMemo) => void,
 }
@@ -36,7 +37,7 @@ export const DisplaySentence: React.FC<Props> = props => {
   }
 
   return <Box sx={{width: "100%", my: 2, ml: 2}}>
-    <DisplaySentenceMainPart line={props.sentence.original} onClick={onClickSentence} />
+    <DisplaySentenceMainPart line={props.sentence.original} lineNumber={props.lineNumber} onClick={onClickSentence} />
     <Box sx={{p: 3}}>
       <TextField
         defaultValue={props.memo?.translation || ""}
