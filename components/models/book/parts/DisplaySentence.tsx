@@ -1,10 +1,10 @@
 import React, {useContext, useRef} from "react"
 import {Box, TextField} from "@mui/material"
-import {Word} from "./Word"
 import {PartMemo} from "../../../../models/memo"
 import {Sentence} from "../../../../models/book"
 import {FocusedLineContext} from "../../../../contexts/FocusedLineContext"
 import {SettingsContext} from "../../../../contexts/SettingsContext"
+import {DisplaySentenceMainPart} from "./DisplaySentenceMainPart"
 
 type Props = {
   sentence: Sentence,
@@ -13,9 +13,6 @@ type Props = {
 }
 
 export const DisplaySentence: React.FC<Props> = props => {
-  // split the sentence into words by separating them by spaces
-  const words = props.sentence.original.split(" ")
-
   // for translation input
   // it is uncontrolled and will be saved in cosmosDB on blur event.
   const translationInputRef = useRef<HTMLTextAreaElement|null>(null)
@@ -28,20 +25,18 @@ export const DisplaySentence: React.FC<Props> = props => {
   // if the sentence is clicked, set it to the focused line
   const focusedLineContextValue = useContext(FocusedLineContext)
   const onClickSentence = () => {
-    focusedLineContextValue.setFocusedLine(props.sentence.original)
+    focusedLineContextValue.updateFocusedLine(props.sentence.original, props.sentence.id)
   }
 
   // if the translation input receives a focus and settings.books.doesFocusedMoveAutomatically is true,
   // set the focusedLine to this line.
   const {settings} = useContext(SettingsContext)
   const onFocusTranslationInput = () => {
-    if (settings.books.doesFocusedMoveAutomatically) focusedLineContextValue.setFocusedLine(props.sentence.original)
+    if (settings.books.doesFocusedMoveAutomatically) focusedLineContextValue.updateFocusedLine(props.sentence.original, props.sentence.id)
   }
 
   return <Box sx={{width: "100%", my: 2, ml: 2}}>
-    <Box sx={{display: "flex", flexWrap: "wrap", "& .MuiBox-root": {margin: 0.5}, fontSize: "1.2rem"}} onClick={onClickSentence}>
-      {words.map((word, index) => <Word key={`${index}-${word}`} text={word} />)}
-    </Box>
+    <DisplaySentenceMainPart line={props.sentence.original} onClick={onClickSentence} />
     <Box sx={{p: 3}}>
       <TextField
         defaultValue={props.memo?.translation || ""}
