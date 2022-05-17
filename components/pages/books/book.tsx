@@ -46,8 +46,9 @@ export const BookPage = (props: {book: Book}) => {
     <FocusedLineProvider>
       <Box sx={{display: "flex", justifyContent: "space-between"}}>
         <Box sx={{width: 1000, height: "100vh", p: 3, borderRight: "3px dashed darkgray", overflowY: "auto", flexGrow: 1}}>
-          {parts.map(part => <DisplayPart
+          {parts.map((part, index) => <DisplayPart
             part={part}
+            lineNumber={index+1}
             key={part.id}
             updateMemo={updateSentenceMemo}
             memo={memoData?.memo?.memos ? memoData.memo.memos[part.id]: undefined}
