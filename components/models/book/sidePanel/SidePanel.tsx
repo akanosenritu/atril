@@ -6,6 +6,7 @@ import {SidePanelLineInfoTab} from "./SidePanelLineInfoTab"
 import {Book} from "../../../../models/book"
 import {SidePanelExportTab} from "./SidePanelExportTab"
 import {SidePanelSettingsTab} from "./SidePanelSettingsTab"
+import {SidePanelEditTab} from "./SidePanelEditTab"
 
 export const SidePanel = (props: {book: Book}) => {
   const focusedWordContextValue = useContext(FocusedWordContext)
@@ -21,13 +22,15 @@ export const SidePanel = (props: {book: Book}) => {
       <Tabs value={tabIndex} onChange={handleTabChange}>
         <Tab label={"Line"} />
         <Tab label={"Word"} />
+        <Tab label={"Edit"} />
         <Tab label={"Export"} />
         <Tab label={"Settings"} />
       </Tabs>
     </Box>
     {tabIndex === 0 && <SidePanelLineInfoTab line={focusedLineContextValue.focusedLine} key={focusedLineContextValue.focusedLine} />}
     {tabIndex === 1 && <Box m={3}>FocusedWord: {focusedWordContextValue.focusedWord}</Box>}
-    {tabIndex === 2 && <SidePanelExportTab book={props.book} />}
-    {tabIndex === 3 && <SidePanelSettingsTab />}
+    {tabIndex === 2 && <SidePanelEditTab book={props.book} />}
+    {tabIndex === 3 && <SidePanelExportTab book={props.book} />}
+    {tabIndex === 4 && <SidePanelSettingsTab />}
   </Box>
 }
